@@ -1,0 +1,29 @@
+{
+  "name"       : "plotchain_server",
+  "version"    : "1.0.0",
+  "description": "",
+  "main"       : "src/server/server.js",
+  "repository" : {
+    "type": "git",
+    "url" : "git+https://github.com/AcrylicShrimp/PlotChain_Server.git"
+  },
+  "contributors": [
+    {
+      "name" : "AcrylicShrimp",
+      "email": "led789zxpp@naver.com"
+    },
+    {
+      "name" : "SeungWoo",
+      "email": "yhnu191919@gmail.com"
+    },
+    {
+      "name" : "c2p",
+      "email": "chalpang22@gmail.com"
+    }
+  ],
+  "license": "UNLICENSED",
+  "bugs"   : {
+    "url": "https://github.com/AcrylicShrimp/PlotChain_Server/issues"
+  },
+  "homepage": "https://github.com/AcrylicShrimp/PlotChain_Server#readme"
+}
