@@ -1,6 +1,6 @@
 
 'use strict';
 
-exports = function () {
+module.exports = function () {
 
 };

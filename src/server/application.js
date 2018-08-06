@@ -8,25 +8,19 @@ const compression = require('compression');
 
 const application = express();
 
-application.use((req, res, next) => {
-	if (!req.is('application/json')) {
-		res.status(400).end();
-		return;
-	}
-
-	next();
-});
-
 application.use(compression());
 application.use(bodyParser.json());
 
 application.use(passport.initialize());
 application.use(passport.session());
 
-application.use();
+const webStatic     = require('./web-static');
+const fallback404   = require('./notfound-fallback');
+const fallbackError = require('./error-fallback');
 
-application.use((err, req, res) => {
-	res.status(400).end();
-});
+//application.use();
+application.use(webStatic);
+application.use(fallback404);
+application.use(fallbackError);
 
-exports = application;
+module.exports = application;
