@@ -11,8 +11,9 @@
         "sourceType" : "module"
     },
     "rules": {
-        "no-console": "warn",
-        "indent"    : [
+        "no-console"    : "warn",
+        "no-unused-vars": "warn",
+        "indent"        : [
             "error",
             "tab"
         ],

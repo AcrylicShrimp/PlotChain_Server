@@ -10,15 +10,19 @@ const application = express();
 
 application.use(compression());
 application.use(bodyParser.json());
+application.use(bodyParser.urlencoded({
+	extended: true
+}));
 
 application.use(passport.initialize());
 application.use(passport.session());
 
-const webStatic     = require('./web-static');
-const fallback404   = require('./notfound-fallback');
-const fallbackError = require('./error-fallback');
+const member        = require('./web/route/member');
+const webStatic     = require('./web/web-static');
+const fallback404   = require('./fallback/notfound-fallback');
+const fallbackError = require('./fallback/error-fallback');
 
-//application.use();
+application.use('/member', member);
 application.use(webStatic);
 application.use(fallback404);
 application.use(fallbackError);
