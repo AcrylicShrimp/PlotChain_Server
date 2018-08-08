@@ -18,11 +18,13 @@ application.use(passport.initialize());
 application.use(passport.session());
 
 const member        = require('./web/route/member');
+const test          = require('./web/route/test');
 const webStatic     = require('./web/web-static');
 const fallback404   = require('./fallback/notfound-fallback');
 const fallbackError = require('./fallback/error-fallback');
 
 application.use('/member', member);
+application.use('/test', test);
 application.use(webStatic);
 application.use(fallback404);
 application.use(fallbackError);
