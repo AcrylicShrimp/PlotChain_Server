@@ -2,6 +2,7 @@
 'use strict';
 
 module.exports = {
+	noError    : 0,
 	serverError: 500,
 	member     : {
 		register: {

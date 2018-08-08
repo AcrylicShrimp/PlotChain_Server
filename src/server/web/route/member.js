@@ -5,88 +5,86 @@ const express = require('express');
 const sha256  = require('sha256');
 const router  = express.Router();
 
+const helper    = require('./helper');
 const errorCode = require('./error-code');
 const Member    = require('./../../database/member');
 
 router.post('/register', (req, res) => {
-	if (req.body.nickname)
-		req.body.nickname = req.body.nickname.trim();
+	let nickname;
+	let email;
+	let password;
 
-	if (req.body.email)
-		req.body.email = req.body.email.trim();
+	if (!(nickname = helper.checkBodyEmpty(req, res, 'nickname', errorCode.member.register.nicknameInvalid, true)))
+		return;
+
+	if (!(email = helper.checkBodyEmpty(req, res, 'email', errorCode.member.register.emailInvalid, true)))
+		return;
 		
-	if (req.body.password)
-		req.body.password = req.body.password.trim();
-
-	if (!req.body.nickname || req.body.nickname.length === 0) {
-		res.status(400).json({
-			success  : false,
-			errorCode: errorCode.member.register.nicknameInvalid
-		});
-
+	if (!(password = helper.checkBodyEmpty(req, res, 'password', errorCode.member.register.passwordInvalid, false)))
 		return;
-	}
 	
-	if (!req.body.email || req.body.email.length === 0) {
-		res.status(400).json({
-			success  : false,
-			errorCode: errorCode.member.register.emailInvalid
-		});
-		
-		return;
-	}
-
-	if (!req.body.password || req.body.password.length === 0) {
-		res.status(400).json({
-			success  : false,
-			errorCode: errorCode.member.register.passwordInvalid
-		});
-
-		return;
-	}
-	
-	Member.findOne({$or: [{'nickname': req.body.nickname}, {'email': req.body.email}]}, (err, member) => {
+	Member.findOne({$or: [{'nickname': nickname}, {'email': email}]}, {_id: false, nickname: true}, (err, member) => {
 		if (err) {
 			console.error(err);
+			helper.serverError(res);
 
-			res.status(500).json({
-				success  : false,
-				errorCode: errorCode.serverError
-			});
-			
 			return;
 		}
 
 		if (member) {
-			res.status(400).json({
-				success  : false,
-				errorCode: member.nickname === req.body.nickname ? errorCode.member.register.nicknameAlreadyInUse: errorCode.member.register.emailAlreadyInUse
-			});
-
+			helper.clientError(res, member.nickname === nickname ?
+				errorCode.member.register.nicknameAlreadyInUse: 
+				errorCode.member.register.emailAlreadyInUse);
 			return;
 		}
 
 		member          = new Member();
-		member.nickname = req.body.nickname;
-		member.email    = req.body.email;
-		member.password = sha256(req.body.password);
+		member.nickname = nickname;
+		member.email    = email;
+		member.password = sha256(password);
 		
 		member.save(err => {
 			if (err) {
 				console.error(err);
-
-				res.status(500).json({
-					success  : false,
-					errorCode: errorCode.serverError
-				});
-
+				helper.serverError(res);
+				
 				return;
 			}
 			
-			res.status(200).json({
-				success  : true,
-				errorCode: 0
-			});
+			helper.success(res);
+		});
+	});
+});
+router.post('/login', (req, res) => {
+	let email;
+	let password;
+
+	if (!(email = helper.checkBodyEmpty(req, res, 'email', errorCode.member.login.loginFailure, true)))
+		return;
+
+	if (!(password = helper.checkBodyEmpty(req, res, 'password', errorCode.member.login.loginFailure, false)))
+		return;
+
+	Member.findOne({email: email}, {_id: false, nickname: true, email: true, password: true}, (err, member) => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
+			
+			return;
+		}
+
+		if (!member) {
+			helper.clientError(res, errorCode.member.login.loginFailure);
+			return;
+		}
+
+		if (member.password !== sha256(password)) {
+			helper.clientError(res, errorCode.member.login.loginFailure);
+			return;
+		}
+
+		helper.success(res, {
+			session: 'THIS_IS_FAKE_SESSION_ID'
 		});
 	});
 });
