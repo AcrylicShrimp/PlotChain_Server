@@ -28,10 +28,10 @@
   "homepage": "https://github.com/AcrylicShrimp/PlotChain_Server#readme",
   "dependencies": {
     "compression": "^1.7.3",
+    "email-validator": "^2.0.4",
     "express": "^4.16.3",
+    "helmet": "^3.13.0",
     "mongoose": "^5.2.6",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
     "serve-static": "^1.13.2",
     "sha256": "^0.2.0",
     "uuid": "^3.3.2"

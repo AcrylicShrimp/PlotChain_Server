@@ -11,9 +11,10 @@
         "sourceType" : "module"
     },
     "rules": {
-        "no-console"    : "warn",
-        "no-unused-vars": "warn",
-        "indent"        : [
+        "no-console"              : "warn",
+        "no-unused-vars"          : "warn",
+        "no-mixed-spaces-and-tabs": "warn",
+        "indent"                  : [
             "error",
             "tab"
         ],
