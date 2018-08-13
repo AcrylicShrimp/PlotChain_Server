@@ -147,10 +147,10 @@ function resizeBlockSecond() {
 	$('.block-second-text').css('top', w(2530));
 	$('.block-second-text').css('left', w(285));
 
-	$('.block-second-img').css('top', w(2285));
-	$('.block-second-img').css('left', w(807));
-	$('.block-second-img').css('width', w(529));
-	$('.block-second-img').css('height', w(595));
+	$('.block-second-img').css('top', w(2160));
+	$('.block-second-img').css('left', w(730));
+	$('.block-second-img').css('width', w(533));
+	$('.block-second-img').css('height', w(720));
 }
 
 function resizeBlockThird() {
@@ -164,10 +164,10 @@ function resizeBlockThird() {
 	$('.block-third-text').css('top', w(3232));
 	$('.block-third-text').css('left', w(810));
 
-	$('.block-third-img').css('top', w(2970));
-	$('.block-third-img').css('left', w(250));
-	$('.block-third-img').css('width', w(529));
-	$('.block-third-img').css('height', w(630));
+	$('.block-third-img').css('top', w(2880));
+	$('.block-third-img').css('left', w(174));
+	$('.block-third-img').css('width', w(533));
+	$('.block-third-img').css('height', w(720));
 }
 
 function resizeBlockFourth() {
@@ -308,5 +308,5 @@ function resizeBlockFooterContent() {
 }
 
 function w(v) {
-	return (width < 1000 ? 1000 : width) * v / 1440;
+	return width * v / 1440;
 }
