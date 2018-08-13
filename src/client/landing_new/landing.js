@@ -7,6 +7,8 @@ $(document).ready(() => {
 	$(window).scroll(updateBackground);
 	$(window).resize(updateBackground);
 	$('html').css('opacity', 1);
+
+	updateBackground();
 });
 
 function updateBackground() {
