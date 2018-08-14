@@ -1,15 +1,17 @@
 
 'use strict';
 
-const bodyParser  = require('body-parser');
-const compression = require('compression');
-const express     = require('express');
-const helmet      = require('helmet');
+const bodyParser   = require('body-parser');
+const compression  = require('compression');
+const express      = require('express');
+const serveFavicon = require('serve-favicon');
+const helmet       = require('helmet');
 
 const application = express();
 
 application.use(helmet());
 application.use(compression());
+application.use(serveFavicon(`${__dirname}/../client/img/favicon.ico`));
 application.use(bodyParser.json());
 application.use(bodyParser.urlencoded({
 	extended: true

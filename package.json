@@ -32,6 +32,7 @@
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "mongoose": "^5.2.6",
+    "serve-favicon": "^2.5.0",
     "serve-static": "^1.13.2",
     "sha256": "^0.2.0",
     "uuid": "^3.3.2"

@@ -1,0 +1,611 @@
+
+html {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	background: white;
+	overflow  : auto;
+	box-sizing: border-box;
+	opacity   : 0;
+	transition: opacity 2s;
+}
+
+body {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	background: transparent;
+	box-sizing: border-box;
+}
+
+div {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	background: transparent;
+	box-sizing: border-box;
+}
+
+span {
+	margin     : 0;
+	border     : 0;
+	padding    : 0;
+	background : transparent;
+	box-sizing : border-box;
+	user-select: none;
+}
+
+.block-overlap {
+	display: inline-block;
+}
+
+.block-title {
+	background-image   : url('/img/home-bg.jpg');
+	background-position: center top;
+	background-repeat  : no-repeat;
+	background-size    : 100% 100%;
+	width              : 0;
+	height             : 0;
+}
+
+.block-title-pen {
+	background-image : url('/img/home-pen.png');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-title-logo {
+	background-image : url('/img/home-logo.png');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-title-menu {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	height     : 0;
+}
+
+.block-title-menu-about {
+	left: 0;
+}
+
+.block-title-menu-value {
+	left: 0;
+}
+
+.block-title-menu-contactus {
+	left: 0;
+}
+
+.block-title-text-large {
+	font-family: 'Nanum Myeongjo';
+	text-align : center;
+	font-size  : 0;
+	color      : #3e3e3e;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-title-text-small {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	color      : #3e3e3e;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-title-app {
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-title-app-google {
+	background-image: url('/img/google.png');
+	top             : 0;
+}
+
+.block-title-app-apple {
+	background-image: url('/img/apple.png');
+	top             : 0;
+}
+
+.block-title-apply {
+	color           : white;
+	background-color: black;
+	text-align      : center;
+	vertical-align  : middle;
+	font-family     : 'Nanum Square';
+	font-size       : 0;
+	line-height     : 0;
+	position        : absolute;
+	top             : 0;
+	left            : 0;
+	width           : 0;
+	height          : 0;
+}
+
+.block-title-img {
+	background-image : url('/img/1.png');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-title-img-title {
+	font-family: 'Nanum Square';
+	text-align : left;
+	font-size  : 0;
+	line-height: 0;
+	color      : black;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-title-img-text {
+	font-family: 'Nanum Square';
+	text-align : left;
+	font-size  : 0;
+	line-height: 0;
+	color      : #3e3e3e;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block {
+	width : 0;
+	height: 0;
+}
+
+.block-odd {
+	background-color: white;
+}
+
+.block-even {
+	background-color: #f8f9fc;
+}
+
+.block-last {
+	height: 0;
+}
+
+.block-footer {
+	background-color: black;
+	width           : 0;
+	height          : 0;
+}
+
+.block-first-title {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : black;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-first-text {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #3e3e3e;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-first-img {
+	background-image : url('/img/2.png');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-second-title {
+	font-family: 'Nanum Square';
+	text-align : left;
+	font-size  : 0;
+	line-height: 0;
+	color      : black;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-second-text {
+	font-family: 'Nanum Square';
+	text-align : left;
+	font-size  : 0;
+	line-height: 0;
+	color      : #3e3e3e;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-second-img {
+	background-image : url('/img/phone.png');
+	background-repeat: no-repeat;
+	background-size  : cover;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-third-title {
+	font-family: 'Nanum Square';
+	text-align : left;
+	font-size  : 0;
+	line-height: 0;
+	color      : black;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-third-text {
+	font-family: 'Nanum Square';
+	text-align : left;
+	font-size  : 0;
+	line-height: 0;
+	color      : #3e3e3e;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-third-img {
+	background-image : url('/img/phone.png');
+	background-repeat: no-repeat;
+	background-size  : cover;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-fourth-img {
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-fourth-img-first {
+	background-image: url('/img/5-1.png');
+	left            : 0;
+}
+
+.block-fourth-img-second {
+	background-image: url('/img/5-2.png');
+	left            : 0;
+}
+
+.block-fourth-img-third {
+	background-image: url('/img/5-3.png');
+	left            : 0;
+}
+
+.block-fourth-title {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : black;
+	position   : absolute;
+	top        : 0;
+}
+
+.block-fourth-title-first {
+	left: 0;
+}
+
+.block-fourth-title-second {
+	left: 0;
+}
+
+.block-fourth-title-third {
+	left: 0;
+}
+
+.block-fourth-text {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+}
+
+.block-fourth-text-first {
+	left: 0;
+}
+
+.block-fourth-text-second {
+	left: 0;
+}
+
+.block-fourth-text-third {
+	left: 0;
+}
+
+.block-fifth-logo {
+	background-image : url('/img/contact-logo.png');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-fifth-member-first {
+	background-image : url('/img/member-lee.jpg');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-fifth-member-second {
+	background-image : url('/img/member-yoon.jpg');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-fifth-member-third {
+	background-image : url('/img/member-park.jpg');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-fifth-name-first {
+	font-weight: 700;
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-fifth-name-second {
+	font-weight: 700;
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-fifth-name-third {
+	font-weight: 700;
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-fifth-horizontal-first {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	position  : absolute;
+	background: #979797;
+	top       : 0;
+	left      : 0;
+	width     : 0;
+	height    : 2px;
+}
+
+.block-fifth-horizontal-second {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	position  : absolute;
+	background: #979797;
+	top       : 0;
+	left      : 0;
+	width     : 0;
+	height    : 2px;
+}
+
+.block-fifth-horizontal-third {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	position  : absolute;
+	background: #979797;
+	top       : 0;
+	left      : 0;
+	width     : 0;
+	height    : 2px;
+}
+
+.block-fifth-title-first {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-fifth-title-second {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-fifth-title-third {
+	font-family: 'Nanum Square';
+	text-align : center;
+	font-size  : 0;
+	line-height: 0;
+	color      : #323232;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
+
+.block-fifth-button-first {
+	color           : white;
+	background-color: black;
+	text-align      : center;
+	font-family     : 'Nanum Square';
+	font-size       : 0;
+	line-height     : 0;
+	position        : absolute;
+	top             : 0;
+	left            : 0;
+	width           : 0;
+	height          : 0;
+}
+
+.block-fifth-button-second {
+	border          : solid 1px black;
+	color           : black;
+	background-color: white;
+	text-align      : center;
+	font-family     : 'Nanum Square';
+	font-size       : 0;
+	line-height     : 0;
+	position        : absolute;
+	top             : 0;
+	left            : 0;
+	width           : 0;
+	height          : 0;
+}
+
+.block-footer-facebook {
+	background-image : url('/img/facebook.png');
+	background-repeat: no-repeat;
+	background-size  : 100% 100%;
+	position         : absolute;
+	top              : 0;
+	left             : 0;
+	width            : 0;
+	height           : 0;
+}
+
+.block-footer-vertical {
+	margin    : 0;
+	border    : 0;
+	padding   : 0;
+	position  : absolute;
+	background: white;
+	top       : 0;
+	width     : 2px;
+	height    : 0;
+}
+
+.block-footer-vertical-first {
+	left: 0;
+}
+
+.block-footer-vertical-second {
+	left: 0;
+}
+
+.block-footer-text {
+	color      : white;
+	text-align : center;
+	font-family: 'Nanum Square';
+	font-size  : 0;
+	line-height: 0;
+	position   : absolute;
+	top        : 0;
+}
+
+.block-footer-text-terms {
+	left: 0;
+}
+
+.block-footer-text-rights {
+	left: 0;
+}
+
+.block-footer-text-privacy {
+	left: 0;
+}
+
+.block-footer-plotchain {
+	color      : white;
+	text-align : center;
+	font-family: 'Nanum Myeongjo';
+	font-size  : 0;
+	line-height: 0;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+}
