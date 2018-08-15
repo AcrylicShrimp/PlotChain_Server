@@ -1,34 +1,63 @@
 
-const $window     = $(window);
-const $document   = $(document);
-const $background = $('.background-image');
+'use strict';
 
-$('#about-button').on('click', function() {
-	console.error('WTF!');
-	$('html').animate({
-		scrollTop: $('#about').offset().top - $('#about').height() / 2
-	}, 500);
-});
+let $window;
+let $document;
+let $background;
 
-$('#value-button').on('click', function () {
-	$('html').animate({
-		scrollTop: $('#value').offset().top - $('#value').height() / 2
-	}, 500);
-});
+$(window).on("load", function() {
+	$window     = $(window);
+	$document   = $(document);
+	$background = $('.background-image');
+	
+	SmoothScroll({
+		animationTime: 400,   // [ms]
+		stepSize     : 100,   // [px]
 
-$('#member-button').on('click', function () {
-	$('html').animate({
-		scrollTop: $('#member').offset().top - $('#member').height() / 4
-	}, 500);
-});
+		// Acceleration
+		accelerationDelta: 50,   // 50
+		accelerationMax  : 3,    // 3
 
-$(document).ready(() => {
-	$('html').smoothWheel();
+		// Keyboard Settings
+		keyboardSupport: true,   // option
+		arrowScroll    : 50,     // [px]
+
+		// Pulse (less tweakable)
+		// ratio of "tail" to "acceleration"
+		pulseAlgorithm: true,
+		pulseScale    : 4,
+		pulseNormalize: 1,
+
+		// Other
+		touchpadSupport: false,   // ignore touchpad by default
+		fixedBackground: true,
+		excluded       : ''
+	});
+	$('html').css('transition', 'opacity 2s');
 	$('html').css('opacity', 1);
 	
 	$window.scroll(updateBackground);
 	$window.resize(updateBackground);
-
+	
+	$('#about-button').on('click', function() {
+		console.error('WTF!');
+		$('html').animate({
+			scrollTop: $('#about').offset().top - $('#about').height() / 2
+		}, 500);
+	});
+	
+	$('#value-button').on('click', function () {
+		$('html').animate({
+			scrollTop: $('#value').offset().top - $('#value').height() / 2
+		}, 500);
+	});
+	
+	$('#member-button').on('click', function () {
+		$('html').animate({
+			scrollTop: $('#member').offset().top - $('#member').height() / 4
+		}, 500);
+	});
+	
 	updateBackground();
 });
 
@@ -36,7 +65,7 @@ function updateBackground() {
 	for (let index = 0; index < $background.length; ++index)
 		$($background[index]).css(
 			'background-position',
-			`${calcBackgroundHorizontal($($background[index]))}% ${calcBackgroundVertical($($background[index]))}%`);
+			calcBackgroundHorizontal($($background[index])) + '% ' + calcBackgroundVertical($($background[index])) + '%');
 }
 
 function calcBackgroundHorizontal(target) {
