@@ -102,15 +102,23 @@ div, span {
 }
 
 .background-image-1 {
-	background: url('/img/home-bg.jpg');
+	background-image: url('/img/bg-1.jpg');
 }
 
 .background-image-2 {
-	background: url('/img/uv.jpg');
+	background-image: url('/img/bg-2.jpg');
 }
 
 .background-image-3 {
-	background: url('/img/phone.png');
+	background-image: url('/img/bg-3.jpg');
+}
+
+.background-image-4 {
+	background-image: url('/img/bg-4.jpg');
+}
+
+.background-image-5 {
+	background-image: url('/img/bg-5.jpg');
 }
 
 .area {
@@ -129,8 +137,16 @@ div, span {
 	padding-top: 10rem;
 }
 
+.area-spaced-top-double {
+	padding-top: 20rem;
+}
+
 .area-spaced-bottom {
 	padding-bottom: 10rem;
+}
+
+.area-spaced-bottom-double {
+	padding-bottom: 20rem;
 }
 
 .positioned-center {
@@ -193,7 +209,7 @@ div, span {
 }
 
 .nav-text:hover {
-	
+	color: #fbfbfb;
 }
 
 .slogan-title {
@@ -272,12 +288,6 @@ div, span {
 	width           : 17.5rem;
 	height          : 17.5rem;
 	margin-top      : 3.125rem;
-}
-
-.phone-image {
-	background-image: url('/img/phone.png');
-	width           : 33.313rem;
-	height          : 55.813rem;
 }
 
 .triple-image {
