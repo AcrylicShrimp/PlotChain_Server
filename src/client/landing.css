@@ -154,6 +154,10 @@ div, span {
 	align-self         : stretch;
 }
 
+.button {
+	cursor: pointer;
+}
+
 .image {
 	background-position: center center;
 	background-repeat  : no-repeat;
@@ -244,18 +248,6 @@ div, span {
 	margin-right: 0;
 }
 
-#about-button.nav-text:hover {
-	color: #bfbfbf;
-}
-
-#value-button.nav-text:hover {
-	color: #bfbfbf;
-}
-
-#member-button.nav-text:hover {
-	color: #bfbfbf;
-}
-
 .nav-title {
 	margin-top: 1.5rem;
 }
@@ -272,14 +264,10 @@ div, span {
 }
 
 .nav-text {
+	padding    : 0.5rem;
 	font-family: Nanum Square;
 	font-size  : 1.125rem;
 	color      : #323232;
-	transition : color 0.25s;
-}
-
-.nav-text:hover {
-	color: white;
 }
 
 .slogan-title {
@@ -298,33 +286,17 @@ div, span {
 	margin-top: 1.563rem;
 }
 
-.google-button {
-	background-image: url('/img/google.png');
-	width           : 13.75rem;
-	height          : 3.75rem;
-}
-
-.apple-button {
-	background-image: url('/img/apple.png');
-	width           : 13.75rem;
-	height          : 3.75rem;
-}
-
-.google-button + .apple-button {
-	margin-top: 1rem;
-}
-
 .subscribe-button {
 	border          : solid 0.063rem black;
 	font-family     : Nanum Square;
 	font-size       : 1.5rem;
-	line-height     : 3.75rem;
+	line-height     : 5rem;
 	text-align      : center;
 	color           : #3e3e3e;
 	background-color: transparent;
 	width           : 13.75rem;
-	height          : 3.75rem;
-	transition      : color 0.25s, background-color 0.25s;
+	height          : 5rem;
+	transition      : color 0.1s, background-color 0.1s;
 }
 
 .subscribe-button:hover {
@@ -333,6 +305,7 @@ div, span {
 }
 
 .apply-button {
+	border          : solid 0.063rem black;
 	font-family     : Nanum Square;
 	font-size       : 1.5rem;
 	line-height     : 5rem;
@@ -341,11 +314,12 @@ div, span {
 	background-color: black;
 	width           : 13.75rem;
 	height          : 5rem;
-	transition      : color 0.25s, background-color 0.25s;
+	transition      : color 0.1s, background-color 0.1s;
 }
 
 .apply-button:hover {
-	
+	color           : black;
+	background-color: transparent;
 }
 
 .article-title {
@@ -457,25 +431,18 @@ div, span {
 }
 
 .contact-button {
-	font-family: Nanum Square;
-	line-height: 3.375rem;
-	text-align : center;
-	width      : 10.938rem;
-	height     : 3.375rem;
-}
-
-.contact-button + .contact-button {
-	margin-left: 1.25rem;
-}
-
-.contact-button-left {
-	color           : white;
-	background-color: black;
-}
-
-.contact-button-right {
-	box-sizing      : content-box;
 	border          : solid 0.063rem black;
+	background-color: black;
+	font-family     : Nanum Square;
+	line-height     : 3.375rem;
+	color           : white;
+	text-align      : center;
+	width           : 10.938rem;
+	height          : 3.375rem;
+	transition      : color 0.1s, background-color 0.1s;
+}
+
+.contact-button:hover {
 	color           : black;
 	background-color: white;
 }

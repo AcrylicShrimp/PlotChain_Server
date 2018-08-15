@@ -39,6 +39,10 @@ $(window).on("load", function() {
 	$window.scroll(updateBackground);
 	$window.resize(updateBackground);
 	
+	$('#logo-button').on('click', function() {
+		location.reload();
+	});
+	
 	$('#about-button').on('click', function() {
 		$('html, body').animate({		//For browser compatibility.
 			scrollTop: $('#about').offset().top - $('#about').height() / 2
@@ -55,6 +59,10 @@ $(window).on("load", function() {
 		$('html, body').animate({		//For browser compatibility.
 			scrollTop: $('#member').offset().top - $('#member').height() / 4
 		}, 500);
+	});
+
+	$('#facebook-button').on('click', function() {
+		window.open('https://www.facebook.com/plotchain/', '_blank');
 	});
 	
 	updateBackground();
