@@ -5,11 +5,12 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no">
-	
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&amp;subset=korean">
 	<link rel="stylesheet" type="text/css" href="//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css">
 	<link rel="stylesheet" type="text/css" href="/landing.css">
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.6/SmoothScroll.min.js"></script>
+	<script src="/lib/jquery-3.3.1.min.js"></script>
+	<script src="/landing.js"></script>
 	<title>
 		Plotchain
 	</title>
@@ -24,19 +25,19 @@
 				<span class="inblock nav-element nav-text" id="value-button">Value</span>
 				<span class="inblock nav-element nav-text" id="member-button">Contact us</span>
 			</nav>
-			
 			<span class="block area-spaced-top"></span>
 			<span class="block slogan-title">당신의 지속적인 창작을 위해.</span>
 			<span class="block slogan-text">블록체인 기반의 새로운 소설 플랫폼, 플롯체인</span>
 			<span class="block area-spaced-top"></span>
-			<span class="block image google-button"></span>
-			<span class="block image apple-button"></span>
-			<span class="nonblock positioned-parent positioned-parent-bottom positioned-parent-right apply-button">작가 신청</span>
+			<div class="flexblock-h flex-space-between">
+				<span class="flex-content nonblock subscribe-button">Subscribe</span>
+				<span class="flex-content nonblock apply-button">작가 신청</span>
+			</div>
 		</div>
 		<span class="block area-spaced-top area-spaced-bottom"></span>
-		<div class="flexblock-h area-fixed" id="about">
+		<div class="flexblock-h flex-space-between area-fixed" id="about">
 			<span class="flex-content nonblock image first-image"></span>
-			<article class="flex-content nonblock positioned-parent positioned-parent-right">
+			<article class="flex-content nonblock">
 				<span class="block article-title">
 					함께 만들어가는<br>
 					새로운 소설 플랫폼
@@ -67,8 +68,8 @@
 			<span class="flex-content nonblock image second-image"></span>
 		</div>
 	</div>
-	<div class="block area area-spaced-top-double area-spaced-bottom-double background-image background-image-3">
-		<div class="flexblock-h area-fixed">
+	<div class="block area area-spaced-top-half area-spaced-bottom-half background-image background-image-3">
+		<div class="flexblock-h flex-space-between area-fixed">
 			<article class="flex-content nonblock">
 				<span class="block article-title">
 					누구나 플롯체인의<br>
@@ -80,10 +81,12 @@
 					당신의 창작에 날개를 달아보세요.
 				</span>
 			</article>
+			<span class="flex-content image phone-image"></span>
 		</div>
 	</div>
-	<div class="block area area-spaced-top-double area-spaced-bottom-double background-image background-image-4">
-		<div class="flexblock-hi area-fixed">
+	<div class="block area area-spaced-top-half area-spaced-bottom-half background-image background-image-4">
+		<div class="flexblock-h flex-space-between area-fixed">
+			<span class="flex-content image phone-image"></span>
 			<article class="flex-content nonblock">
 				<span class="block article-title">
 					마음에 드는 작품에<br>
@@ -98,7 +101,7 @@
 			</article>
 		</div>
 	</div>
-	<div class="block area area-spaced-top-double area-spaced-bottom-double background-image background-image-5">
+	<div class="block area area-spaced-top area-spaced-bottom background-image background-image-5">
 		<div class="flexblock-h area-fixed" id="value">
 			<div class="flex-content-stretch">
 				<div class="flexblock-v half-section">
@@ -192,18 +195,17 @@
 	</div>
 	<footer class="block area background-black">
 		<div class="block area-fixed">
-			<nav class="block footer-list">
-				<span class="nonblock image footer-image"></span>
-				<span class="inblock footer-list-element footer-text">플롯체인 이용약관</span>
-				<span class="nonblock footer-list-element footer-vertical"></span>
-				<span class="inblock footer-list-element footer-text">이용자의 권리 및 유의사항</span>
-				<span class="nonblock footer-list-element footer-vertical"></span>
-				<span class="inblock footer-list-element footer-text">개인정보처리방침</span>
-				<span class="inblock positioned-parent positioned-parent-right footer-plotchain">ⓒ plotchain</span>
+			<nav class="flexblock-h flex-space-between footer-list">
+				<div class="inblock">
+					<span class="nonblock image footer-image"></span>
+					<span class="inblock footer-list-element footer-text">플롯체인 이용약관</span>
+					<span class="nonblock footer-list-element footer-vertical"></span>
+					<span class="inblock footer-list-element footer-text">이용자의 권리 및 유의사항</span>
+					<span class="nonblock footer-list-element footer-vertical"></span>
+					<span class="inblock footer-list-element footer-text">개인정보처리방침</span>
+				</div>
+				<span class="inblock footer-plotchain">ⓒ plotchain</span>
 			</nav>
 		</div>
 	</footer>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.6/SmoothScroll.min.js"></script>
-	<script src="/lib/jquery-3.3.1.min.js"></script>
-	<script src="/landing.js"></script>
 </body>

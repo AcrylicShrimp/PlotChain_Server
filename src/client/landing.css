@@ -20,11 +20,13 @@ body {
 }
 
 div, span {
-	user-select: none;
-	margin     : 0;
-	border     : 0;
-	padding    : 0;
-	box-sizing : border-box;
+	-webkit-user-select: none;
+	-ms-user-select    : none;
+	user-select        : none;
+	margin             : 0;
+	border             : 0;
+	padding            : 0;
+	box-sizing         : border-box;
 }
 
 .block {
@@ -40,42 +42,116 @@ div, span {
 }
 
 .flexblock-h {
-	display       : flex;
-	flex-direction: row;
+	display               : -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6 */
+	display               : -moz-box;      /* OLD - Firefox 19- (buggy but mostly works) */
+	display               : -ms-flexbox;   /* TWEENER - IE 10 */
+	display               : -webkit-flex;  /* NEW - Chrome */
+	display               : flex;          /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	-webkit-flex-direction: row;
+	-ms-flex-direction    : row;
+	flex-direction        : row;
+	-webkit-align-items   : center;
+	-ms-flex-align        : center;
+	align-items           : center;
 }
 
 .flexblock-hi {
-	display       : flex;
-	flex-direction: row-reverse;
+	display               : -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6 */
+	display               : -moz-box;      /* OLD - Firefox 19- (buggy but mostly works) */
+	display               : -ms-flexbox;   /* TWEENER - IE 10 */
+	display               : -webkit-flex;  /* NEW - Chrome */
+	display               : flex;          /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	-webkit-flex-direction: row-reverse;
+	-ms-flex-direction    : row-reverse;
+	flex-direction        : row-reverse;
+	-webkit-align-items   : center;
+	-ms-flex-align        : center;
+	align-items           : center;
 }
 
 .flexblock-v {
-	display       : flex;
-	flex-direction: column;
+	display               : -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6 */
+	display               : -moz-box;      /* OLD - Firefox 19- (buggy but mostly works) */
+	display               : -ms-flexbox;   /* TWEENER - IE 10 */
+	display               : -webkit-flex;  /* NEW - Chrome */
+	display               : flex;          /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	-webkit-flex-direction: column;
+	-ms-flex-direction    : column;
+	flex-direction        : column;
+	-webkit-align-items   : center;
+	-ms-flex-align        : center;
+	align-items           : center;
 }
 
 .flexblock-vi {
-	display       : flex;
-	flex-direction: column-reverse;
-}
-
-.flex-content {
-	flex      : 0 1 auto;
-	align-self: center;
-}
-
-.flex-content-fill {
-	flex      : 1 1 auto;
-	align-self: center;
-}
-
-.flex-content-stretch {
-	flex      : 1 1 0;
-	align-self: stretch;
+	display               : -webkit-box;     /* OLD - iOS 6-, Safari 3.1-6 */
+	display               : -moz-box;        /* OLD - Firefox 19- (buggy but mostly works) */
+	display               : -ms-flexbox;     /* TWEENER - IE 10 */
+	display               : -webkit-flex;    /* NEW - Chrome */
+	display               : flex;            /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	-webkit-flex-direction: column-reverse;
+	-ms-flex-direction    : column-reverse;
+	flex-direction        : column-reverse;
+	-webkit-align-items   : center;
+	-ms-flex-align        : center;
+	align-items           : center;
 }
 
 .flex-center {
-	justify-content: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack          : center;
+	justify-content        : center;
+}
+
+.flex-space-between {
+	-webkit-justify-content: space-between;
+	-ms-flex-pack          : justify;
+	justify-content        : space-between;
+}
+
+.flex-content {
+	-webkit-flex-grow  : 0;
+	-ms-flex-grow      : 0;
+	flex-grow          : 0;
+	-webkit-flex-shrink: 1;
+	-ms-flex-shrink    : 1;
+	flex-shrink        : 1;
+	-webkit-flex-basis : auto;
+	-ms-flex-basis     : auto;
+	flex-basis         : auto;
+	-webkit-align-self : center;
+	-ms-flex-item-align: center;
+	align-self         : center;
+}
+
+.flex-content-fill {
+	-webkit-flex-grow  : 1;
+	-ms-flex-grow      : 1;
+	flex-grow          : 1;
+	-webkit-flex-shrink: 1;
+	-ms-flex-shrink    : 1;
+	flex-shrink        : 1;
+	-webkit-flex-basis : auto;
+	-ms-flex-basis     : auto;
+	flex-basis         : auto;
+	-webkit-align-self : center;
+	-ms-flex-item-align: center;
+	align-self         : center;
+}
+
+.flex-content-stretch {
+	-webkit-flex-grow  : 1;
+	-ms-flex-grow      : 1;
+	flex-grow          : 1;
+	-webkit-flex-shrink: 1;
+	-ms-flex-shrink    : 1;
+	flex-shrink        : 1;
+	-webkit-flex-basis : 0;
+	-ms-flex-basis     : 0;
+	flex-basis         : 0;
+	-webkit-align-self : stretch;
+	-ms-flex-item-align: stretch;
+	align-self         : stretch;
 }
 
 .image {
@@ -97,7 +173,6 @@ div, span {
 	background-position  : center center;
 	background-repeat    : no-repeat;
 	background-size      : cover;
-	z-index              : -1;
 }
 
 .background-image-1 {
@@ -121,14 +196,12 @@ div, span {
 }
 
 .area {
-	position: relative;
-	width   : 100%;
+	width: 100%;
 }
 
 .area-fixed {
 	margin-left : auto;
 	margin-right: auto;
-	position    : relative;
 	max-width   : 60rem;
 }
 
@@ -140,6 +213,10 @@ div, span {
 	padding-top: 20rem;
 }
 
+.area-spaced-top-half {
+	padding-top: 5rem;
+}
+
 .area-spaced-bottom {
 	padding-bottom: 10rem;
 }
@@ -148,29 +225,23 @@ div, span {
 	padding-bottom: 20rem;
 }
 
+.area-spaced-bottom-half {
+	padding-bottom: 5rem;
+}
+
 .positioned-center {
 	margin-left : auto;
 	margin-right: auto;
 }
 
-.positioned-parent {
-	position: absolute;
+.positioned-left {
+	margin-left : 0;
+	margin-right: auto;
 }
 
-.positioned-parent-top {
-	top: 0;
-}
-
-.positioned-parent-bottom {
-	bottom: 0;
-}
-
-.positioned-parent-left {
-	left: 0;
-}
-
-.positioned-parent-right {
-	right: 0;
+.positioned-right {
+	margin-left : auto;
+	margin-right: 0;
 }
 
 #about-button.nav-text:hover {
@@ -204,11 +275,11 @@ div, span {
 	font-family: Nanum Square;
 	font-size  : 1.125rem;
 	color      : #323232;
-	transition : color 1s;
+	transition : color 0.25s;
 }
 
 .nav-text:hover {
-	color: #fbfbfb;
+	color: white;
 }
 
 .slogan-title {
@@ -243,6 +314,24 @@ div, span {
 	margin-top: 1rem;
 }
 
+.subscribe-button {
+	border          : solid 0.063rem black;
+	font-family     : Nanum Square;
+	font-size       : 1.5rem;
+	line-height     : 3.75rem;
+	text-align      : center;
+	color           : #3e3e3e;
+	background-color: transparent;
+	width           : 13.75rem;
+	height          : 3.75rem;
+	transition      : color 0.25s, background-color 0.25s;
+}
+
+.subscribe-button:hover {
+	color           : white;
+	background-color: black;
+}
+
 .apply-button {
 	font-family     : Nanum Square;
 	font-size       : 1.5rem;
@@ -252,6 +341,11 @@ div, span {
 	background-color: black;
 	width           : 13.75rem;
 	height          : 5rem;
+	transition      : color 0.25s, background-color 0.25s;
+}
+
+.apply-button:hover {
+	
 }
 
 .article-title {
@@ -274,6 +368,12 @@ div, span {
 
 .article-title + .article-text {
 	margin-top: 2.5rem;
+}
+
+.phone-image {
+	background-image: url('/img/phone.png');
+	width           : 23.75rem;
+	height          : 42.125rem;
 }
 
 .first-image {
@@ -383,7 +483,6 @@ div, span {
 .footer-list {
 	padding-top   : 3.875rem;
 	padding-bottom: 1.5rem;
-	height        : 2.125rem;
 }
 
 .footer-list-element + .footer-list-element {

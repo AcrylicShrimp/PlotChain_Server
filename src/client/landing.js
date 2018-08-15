@@ -40,20 +40,19 @@ $(window).on("load", function() {
 	$window.resize(updateBackground);
 	
 	$('#about-button').on('click', function() {
-		console.error('WTF!');
-		$('html').animate({
+		$('html, body').animate({		//For browser compatibility.
 			scrollTop: $('#about').offset().top - $('#about').height() / 2
 		}, 500);
 	});
 	
 	$('#value-button').on('click', function () {
-		$('html').animate({
+		$('html, body').animate({		//For browser compatibility.
 			scrollTop: $('#value').offset().top - $('#value').height() / 2
 		}, 500);
 	});
 	
 	$('#member-button').on('click', function () {
-		$('html').animate({
+		$('html, body').animate({		//For browser compatibility.
 			scrollTop: $('#member').offset().top - $('#member').height() / 4
 		}, 500);
 	});
