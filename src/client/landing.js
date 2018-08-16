@@ -55,10 +55,14 @@ $(window).on("load", function() {
 		}, 500);
 	});
 	
-	$('#member-button').on('click', function () {
+	$('#team-button').on('click', function () {
 		$('html, body').animate({		//For browser compatibility.
 			scrollTop: $('#member').offset().top - $('#member').height() / 4
 		}, 500);
+	});
+
+	$('#communication-button').on('click', function () {
+		window.open('https://www.facebook.com/plotchain/', '_blank');
 	});
 
 	$('#facebook-button').on('click', function() {
