@@ -22,6 +22,31 @@ module.exports = {
 			errorCode: errCode
 		});
 	},
+	checkParamEmpty(req, res, name, errorCode, trim) {
+		if (!req.params[name] || typeof req.params[name] !== 'string') {
+			res.status(400).json({
+				success  : false,
+				errorCode: errorCode
+			});
+
+			return null;
+		}
+
+		let value = req.params[name];
+
+		if (trim)
+			value = value.trim();
+
+		if (value.length !== 0)
+			return value;
+
+		res.status(400).json({
+			success  : false,
+			errorCode: errorCode
+		});
+
+		return null;
+	},
 	checkQueryEmpty(req, res, name, errorCode, trim) {
 		if (!req.query[name] || typeof req.query[name] !== 'string') {
 			res.status(400).json({

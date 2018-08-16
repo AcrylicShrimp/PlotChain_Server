@@ -11,12 +11,22 @@ const Counter        = require('./../../database/counter');
 const Episode        = require('./../../database/episode');
 const Novel          = require('./../../database/novel');
 
-router.post('/create', sessionHandler, (req, res) => {
-	if (!req.member.writer) {
-		helper.clientError(res, errorCode.writerNeeded);
-		return;
-	}
+router.get('/', sessionHandler, (req, res) => {
+	Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, author: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).limit(25).exec((err, novel) => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
 
+			return;
+		}
+
+		helper.success(res, {
+			novel: novel
+		});
+	});
+});
+
+router.post('/', sessionHandler, (req, res) => {
 	let name;
 	let introduction;
 
@@ -26,7 +36,7 @@ router.post('/create', sessionHandler, (req, res) => {
 	if (!(introduction = req.body.introduction))
 		introduction = '';
 
-	Novel.find({ author: req.member.nickname }, (err, novel) => {
+	Counter.nextSeq('novels', (err, seq) => {
 		if (err) {
 			console.error(err);
 			helper.serverError(res);
@@ -34,12 +44,14 @@ router.post('/create', sessionHandler, (req, res) => {
 			return;
 		}
 
-		if (novel.length >= 3) {
-			helper.clientError(res, errorCode.novelToomany);
-			return;
-		}
-
-		Counter.nextSeq('novels', (err, seq) => {
+		const novel              = new Novel();
+		      novel.id           = seq;
+		      novel.name         = name;
+		      novel.author       = req.member.nickname;
+		      novel.introduction = introduction;
+		      novel.episodeCount = 0;
+		      novel.createdDate  = novel.updatedDate = Date.now();
+		novel.save(err => {
 			if (err) {
 				console.error(err);
 				helper.serverError(res);
@@ -47,41 +59,20 @@ router.post('/create', sessionHandler, (req, res) => {
 				return;
 			}
 
-			novel              = new Novel();
-			novel.id           = seq;
-			novel.name         = name;
-			novel.author       = req.member.nickname;
-			novel.introduction = introduction;
-			novel.episodeCount = 0;
-			novel.createdDate  = novel.updatedDate = Date.now();
-			novel.save(err => {
-				if (err) {
-					console.error(err);
-					helper.serverError(res);
-
-					return;
-				}
-
-				helper.success(res, {
-					id: novel.id
-				});
+			helper.success(res, {
+				id: novel.id
 			});
 		});
 	});
 });
 
-router.post('/delete', sessionHandler, (req, res) => {
-	if (!req.member.writer) {
-		helper.clientError(res, errorCode.writerNeeded);
-		return;
-	}
-
+router.delete('/', sessionHandler, (req, res) => {
 	let id;
 
 	if (!(id = helper.checkBodyEmpty(req, res, 'id', errorCode.novelIdInvalid, true)))
 		return;
 
-	Novel.findOne({ id: id }, (err, novel) => {
+	Novel.findOne({ id: id }, { _id: true }, (err, novel) => {
 		if (err) {
 			console.error(err);
 			helper.serverError(res);
@@ -99,30 +90,74 @@ router.post('/delete', sessionHandler, (req, res) => {
 			return;
 		}
 
-		novel.remove(err => {
+		Episode.remove({ novel: novel.id }, err => {
 			if (err) {
 				console.error(err);
 				helper.serverError(res);
 
 				return;
 			}
-
-			helper.success(res);
+			
+			novel.remove(err => {
+				if (err) {
+					console.error(err);
+					helper.serverError(res);
+	
+					return;
+				}
+	
+				helper.success(res);
+			});
 		});
 	});
 });
 
-router.post('/post', sessionHandler, (req, res) => {
-	if (!req.member.writer) {
-		helper.clientError(res, errorCode.writerNeeded);
+router.get('/:id', sessionHandler, (req, res) => {
+	let id;
+	
+	if (!(id = helper.checkParamEmpty(req, res, 'id', errorCode.novelIdInvalid, true)))
 		return;
-	}
 
+	Novel.findOne({ id: id }, { _id: false, name: true, author: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }, (err, novel) => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
+
+			return;
+		}
+		
+		if (!novel) {
+			helper.clientError(res, errorCode.novelIdInvalid);
+			return;
+		}
+
+		Episode.find({ novel: id }, { _id: false, id: true, name: true, content: true, createdDate: true, updatedDate: true }, (err, episode) => {
+			if (err) {
+				console.error(err);
+				helper.serverError(res);
+
+				return;
+			}
+			
+			helper.success(res, Object.assign({
+				name        : novel.name,
+				author      : novel.author,
+				introduction: novel.introduction,
+				episodeCount: novel.episodeCount,
+				createdDate : novel.createdDate,
+				updatedDate : novel.updatedDate,
+				episode     : episode
+			}));
+		});
+	});
+});
+
+router.post('/:id', sessionHandler, (req, res) => {
 	let id;
 	let name;
 	let content;
 
-	if (!(id = helper.checkBodyEmpty(req, res, 'id', errorCode.novelIdInvalid, true)))
+	if (!(id = helper.checkParamEmpty(req, res, 'id', errorCode.novelIdInvalid, true)))
 		return;
 
 	if (!(name = req.body.name))
@@ -131,7 +166,7 @@ router.post('/post', sessionHandler, (req, res) => {
 	if (!(content = req.body.content))
 		content = '';
 
-	Novel.findOne({ id: id }, (err, novel) => {
+	Novel.findOne({ id: id }, { _id: true, id: true, author: true, episodeCount: true,  updatedDate: true }, (err, novel) => {
 		if (err) {
 			console.error(err);
 			helper.serverError(res);
@@ -174,6 +209,57 @@ router.post('/post', sessionHandler, (req, res) => {
 				helper.success(res, {
 					id: episode.id
 				});
+			});
+		});
+	});
+});
+
+router.get('/:id/:episode', sessionHandler, (req, res) => {
+	let id;
+	let episode;
+
+	if (!(id = helper.checkParamEmpty(req, res, 'id', errorCode.novelIdInvalid, true)))
+		return;
+
+	if (!(episode = helper.checkParamEmpty(req, res, 'episode', errorCode.episodeInvalid, true)))
+		return;
+
+	Novel.findOne({ id: id }, { _id: false, id: true, episodeCount: true }, (err, novel) => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
+
+			return;
+		}
+
+		if (!novel) {
+			helper.clientError(res, errorCode.novelIdInvalid);
+			return;
+		}
+		
+		if (novel.episodeCount <= episode) {
+			helper.clientError(res, errorCode.episodeInvalid);
+			return;
+		}
+
+		Episode.findOne({ id: episode, novel: novel.id }, { _id: false, name: true, content: true, createdDate: true, updatedDate: true }, (err, episode) => {
+			if (err) {
+				console.error(err);
+				helper.serverError(res);
+
+				return;
+			}
+			
+			if (!episode) {
+				helper.clientError(res, errorCode.episodeInvalid);
+				return;
+			}
+
+			helper.success(res, {
+				name       : episode.name,
+				content    : episode.content,
+				createdDate: episode.createdDate,
+				updatedDate: episode.updatedDate
 			});
 		});
 	});

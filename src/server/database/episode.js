@@ -4,8 +4,8 @@
 const mongoose = require('mongoose');
 
 const episode = mongoose.Schema({
-	id         : String,
-	novel      : String,
+	id         : Number,
+	novel      : Number,
 	name       : String,
 	content    : String,
 	createdDate: Date,

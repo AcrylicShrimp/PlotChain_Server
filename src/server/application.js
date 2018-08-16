@@ -19,14 +19,12 @@ application.use(bodyParser.urlencoded({
 
 const member        = require('./web/route/member');
 const novel         = require('./web/route/novel');
-const writer        = require('./web/route/writer');
 const webStatic     = require('./web/web-static');
 const fallback404   = require('./fallback/notfound-fallback');
 const fallbackError = require('./fallback/error-fallback');
 
 application.use('/member', member);
 application.use('/novel', novel);
-application.use('/writer', writer);
 application.use(webStatic);
 application.use(fallback404);
 application.use(fallbackError);

@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
 
 		const now = Date.now();
 
-		if (now - session.generatedTime > 36000000) {
+		if (now - session.generatedTime > 900000) {
 			helper.clientError(res, errorCode.loginExpired);
 			return;
 		}

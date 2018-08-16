@@ -13,7 +13,7 @@ const sessionHandler = require('./../session-handler');
 const Member         = require('./../../database/member');
 const Session        = require('./../../database/session');
 
-router.post('/register', (req, res) => {
+router.post('/', (req, res) => {
 	let nickname;
 	let email;
 	let password;
@@ -66,7 +66,7 @@ router.post('/register', (req, res) => {
 	});
 });
 
-router.post('/login', (req, res) => {
+router.post('/session', (req, res) => {
 	let email;
 	let password;
 
@@ -119,7 +119,7 @@ router.post('/login', (req, res) => {
 	});
 });
 
-router.post('/logout', sessionHandler, (req, res) => {
+router.delete('/session', sessionHandler, (req, res) => {
 	Session.findOne({ session: req.session }, (err, session) => {
 		if (err) {
 			console.error(err);
