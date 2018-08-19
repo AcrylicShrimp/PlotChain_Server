@@ -131,7 +131,7 @@ router.get('/:id', sessionHandler, (req, res) => {
 			return;
 		}
 
-		Episode.find({ novel: id }, { _id: false, id: true, name: true, content: true, createdDate: true, updatedDate: true }, (err, episode) => {
+		Episode.find({ novel: id }, { _id: false, id: true, name: true, createdDate: true, updatedDate: true }, (err, episode) => {
 			if (err) {
 				console.error(err);
 				helper.serverError(res);

@@ -75,6 +75,11 @@ router.post('/session', (req, res) => {
 
 	if (!(password = helper.checkBodyEmpty(req, res, 'password', errorCode.loginFailure, false)))
 		return;
+		
+	if (!emailValidator.validate(email)) {
+		helper.clientError(res, errorCode.emailInvalid);
+		return;
+	}
 
 	Member.findOne({ email: email, password: sha256(password) }, { _id: false, nickname: true, email: true, password: true }, (err, member) => {
 		if (err) {
