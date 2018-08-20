@@ -126,6 +126,12 @@ div, span {
 	}
 }
 
+.flex-start {
+	-webkit-justify-content: start;
+	-ms-flex-pack          : start;
+	justify-content        : start;
+}
+
 .flex-center {
 	-webkit-justify-content: center;
 	-ms-flex-pack          : center;
@@ -136,6 +142,36 @@ div, span {
 	-webkit-justify-content: space-between;
 	-ms-flex-pack          : justify;
 	justify-content        : space-between;
+}
+
+.flex-begin {
+	-webkit-flex-grow  : 0;
+	-ms-flex-grow      : 0;
+	flex-grow          : 0;
+	-webkit-flex-shrink: 1;
+	-ms-flex-shrink    : 1;
+	flex-shrink        : 1;
+	-webkit-flex-basis : auto;
+	-ms-flex-basis     : auto;
+	flex-basis         : auto;
+	-webkit-align-self : flex-start;
+	-ms-flex-item-align: flex-start;
+	align-self         : flex-start;
+}
+
+.flex-end {
+	-webkit-flex-grow  : 0;
+	-ms-flex-grow      : 0;
+	flex-grow          : 0;
+	-webkit-flex-shrink: 1;
+	-ms-flex-shrink    : 1;
+	flex-shrink        : 1;
+	-webkit-flex-basis : auto;
+	-ms-flex-basis     : auto;
+	flex-basis         : auto;
+	-webkit-align-self : flex-end;
+	-ms-flex-item-align: flex-end;
+	align-self         : flex-end;
 }
 
 .flex-content {
@@ -184,6 +220,26 @@ div, span {
 }
 
 @media (max-width: 980px) {
+	.flex-begin {
+		-webkit-align-self : center;
+		-ms-flex-item-align: center;
+		align-self         : center;
+	}
+
+	.flex-end {
+		-webkit-align-self : center;
+		-ms-flex-item-align: center;
+		align-self         : center;
+	}
+
+	.flex-begin + .flex-begin {
+		margin-top: 1.5rem;
+	}
+
+	.flex-end + .flex-end {
+		margin-top: 1.5rem;
+	}
+	
 	.flex-content + .flex-content {
 		margin-top: 3rem;
 	}
@@ -261,6 +317,13 @@ div, span {
 	max-width   : 60rem;
 }
 
+@media (max-width: 980px) {
+	.area-fixed {
+		padding-left : 1rem;
+		padding-right: 1rem;
+	}
+}
+
 .area-spaced-top {
 	padding-top: 10rem;
 }
@@ -307,7 +370,7 @@ div, span {
 @media (max-width: 980px) {
 	.nav-title {
 		display    : block;
-		padding-top: 2.5rem;
+		padding-top: 1.25rem;
 	}
 }
 
@@ -333,7 +396,8 @@ div, span {
 		display     : block;
 		margin-left : auto;
 		margin-right: auto;
-		width       : 100%;
+		width       : 9.3rem;
+		height      : 2rem;
 	}
 }
 
@@ -382,7 +446,7 @@ div, span {
 	.slogan-title {
 		padding-left : .5em;
 		padding-right: .5em;
-		font-size    : 2.75rem;
+		font-size    : 2.25rem;
 		text-align   : center;
 	}
 
@@ -458,13 +522,17 @@ div, span {
 
 @media (max-width: 980px) {
 	.article-title {
-		text-align: center;
-		max-width : 25.625rem;
+		padding-left : 0;
+		padding-right: 0;
+		text-align   : center;
+		max-width    : 25.625rem;
 	}
 
 	.article-text {
-		text-align: center;
-		max-width : 25.625rem;
+		padding-left : 0;
+		padding-right: 0;
+		text-align   : center;
+		max-width    : 25.625rem;
 	}
 	
 	.article-title + .article-text {
@@ -546,14 +614,15 @@ div, span {
 	font-size  : 1.25rem;
 	line-height: 3.375rem;
 	text-align : center;
-	color      : 323232;
+	color      : #323232;
 }
 
 .member-horizontal {
 	margin-bottom: 0.75rem;
 	background   : #979797;
+	max-width    : 13.75rem;
 	width        : 100%;
-	height       : 0.125rem;
+	height       : 0.063rem;
 }
 
 .member-text {
@@ -561,7 +630,7 @@ div, span {
 	font-size  : 1.25rem;
 	line-height: 1.875rem;
 	text-align : center;
-	color      : 323232;
+	color      : #323232;
 }
 
 @media (max-width: 980px) {
@@ -570,41 +639,27 @@ div, span {
 	}
 }
 
+.logo-split {
+	margin-top      : 5.625rem;
+	background-color: #979797;
+	max-width       : 100%;
+	height          : 0.063rem;
+}
+
+.logo-cross {
+	margin-top      : 1.5rem;
+	background-image: url('/img/logo-cross.png');
+	max-width       : 27.188rem;
+	height          : 2.438rem;
+}
+
 .footer-list {
-	padding-top   : 3.875rem;
-	padding-bottom: 1.5rem;
+	padding-top   : 1rem;
+	padding-bottom: 1rem;
 }
 
 .footer-list-element + .footer-list-element {
 	margin-left: 1rem;
-}
-
-.footer-image {
-	margin-right    : 1.875rem;
-	background-image: url('/img/facebook.png');
-	width           : 2.125rem;
-	height          : 2.125rem;
-	vertical-align  : middle;
-}
-
-@media (max-width: 980px) {
-	.footer-image {
-		margin-right: 0;
-	}
-}
-
-.footer-text {
-	font-family: Nanum Square;
-	font-size  : 1rem;
-	line-height: 1.875rem;
-	color      : white;
-}
-
-.footer-vertical {
-	background-color: white;
-	width           : 0.125rem;
-	height          : 1.25rem;
-	vertical-align  : middle;
 }
 
 .footer-plotchain {
@@ -614,8 +669,30 @@ div, span {
 	color      : white;
 }
 
+.footer-text {
+	font-family: Nanum Square;
+	font-size  : 1rem;
+	line-height: 1.4rem;
+	color      : white;
+}
+
+.footer-plotchain + .footer-text {
+	margin-top: 2rem;
+}
+
+.footer-image {
+	background-image: url('/img/facebook.png');
+	width           : 2.125rem;
+	height          : 2.125rem;
+	vertical-align  : middle;
+}
+
 @media (max-width: 980px) {
-	.footer-plotchain {
+	.footer-text {
+		text-align: center;
+	}
+
+	.footer-image {
 		margin-top: 2rem;
 	}
 }
