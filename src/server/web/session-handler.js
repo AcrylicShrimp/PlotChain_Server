@@ -9,7 +9,7 @@ const Session   = require('./../database/session');
 module.exports = (req, res, next) => {
 	let sessionId;
 
-	if (!(sessionId = helper.checkBodyEmpty(req, res, 'session', errorCode.loginNeeded, true)))
+	if (!(sessionId = helper.checkQueryEmpty(req, res, 'session', errorCode.loginNeeded, true)))
 		return;
 
 	Session.findOne({ session: sessionId }, (err, session) => {

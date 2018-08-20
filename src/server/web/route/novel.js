@@ -4,7 +4,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const errorCode      = require('./../error-code');
+const errorCode      = require('../error-code');
 const helper         = require('./../helper');
 const sessionHandler = require('./../session-handler');
 const Counter        = require('./../../database/counter');
@@ -12,7 +12,50 @@ const Episode        = require('./../../database/episode');
 const Novel          = require('./../../database/novel');
 
 router.get('/', sessionHandler, (req, res) => {
-	Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, author: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).limit(25).exec((err, novel) => {
+	let mode;
+	let position;
+
+	if (!(mode = helper.checkQueryEmpty(req, res, 'mode', errorCode.modeInvalid, true)))
+		return;
+		
+	if (!(position = Number(req.query.position)))
+		position = 0;
+		
+	if (mode)
+		Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, author: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).skip(position).limit(25).exec((err, novel) => {
+			if (err) {
+				console.error(err);
+				helper.serverError(res);
+
+				return;
+			}
+			
+			helper.success(res, {
+				novel: novel
+			});
+		});
+	else
+		Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, author: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).skip(position).limit(25).exec((err, novel) => {
+			if (err) {
+				console.error(err);
+				helper.serverError(res);
+
+				return;
+			}
+
+			helper.success(res, {
+				novel: novel
+			});
+		});
+});
+
+router.get('/list', sessionHandler, (req, res) => {
+	let nickname;
+
+	if (!(nickname = helper.checkQueryEmpty(req, res, 'nickname', errorCode.nicknameInvalid, true)))
+		return;
+
+	Novel.find({ author: nickname }, { _id: false, id: true, name: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }, (err, novel) => {
 		if (err) {
 			console.error(err);
 			helper.serverError(res);

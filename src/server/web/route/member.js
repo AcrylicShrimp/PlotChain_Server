@@ -11,6 +11,7 @@ const errorCode      = require('./../error-code');
 const helper         = require('./../helper');
 const sessionHandler = require('./../session-handler');
 const Member         = require('./../../database/member');
+const Novel          = require('./../../database/novel');
 const Session        = require('./../../database/session');
 
 router.post('/', (req, res) => {
@@ -117,7 +118,9 @@ router.post('/session', (req, res) => {
 				}
 
 				helper.success(res, {
-					session: session.session
+					nickname: member.nickname,
+					email   : member.email,
+					session : session.session
 				});
 			});
 		});

@@ -12,6 +12,7 @@ module.exports = {
 	novelIdInvalid      : 7,
 	novelNotPermitted   : 8,
 	episodeInvalid      : 9,
+	modeInvalid         : 10,
 	nicknameAlreadyInUse: 100,
 	emailAlreadyInUse   : 101,
 	nicknameInvalid     : 102,
