@@ -1,0 +1,302 @@
+
+0. 에러 코드 목록
+	noError             : 0,
+	badRequest          : 1,
+	loginNeeded         : 2,
+	loginFailure        : 3,
+	loginExpired        : 4,
+	sessionInvalid      : 5,
+	novelNameInvalid    : 6,
+	novelIdInvalid      : 7,
+	novelNotPermitted   : 8,
+	episodeInvalid      : 9,
+	nicknameAlreadyInUse: 100,
+	emailAlreadyInUse   : 101,
+	nicknameInvalid     : 102,
+	emailInvalid        : 103,
+	passwordInvalid     : 104,
+	serverError         : 500
+
+1. 회원가입
+
+	1.1. URL
+		/member/
+
+	1.2. Request
+		POST
+
+	1.3. Request JSON
+		{
+			nickname: 비어있지 않은 문자열(trim),
+			email   : 비어있지 않고 올바른 email 형식 문자열(trim),
+			password: 비어있지 않은 문자열
+		}
+
+	1.4. Response JSON
+
+		1.4.1. Success
+			{
+				success  : true,
+				errorCode: 0
+			}
+
+		1.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+2. 로그인
+
+	2.1. URL
+		/member/session/
+
+	2.2. Request
+		POST
+
+	2.3. Request JSON
+		{
+			email   : 비어있지 않고 올바른 email 형식 문자열(trim),
+			password: 비어있지 않은 문자열
+		}
+
+	2.4. Response JSON
+	
+		2.4.1. Success
+			{
+				success  : true,
+				errorCode: 0,
+				session  : 로그인 세션 문자열
+			}
+
+		2.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+3. 로그아웃
+
+	3.1. URL
+		/member/session/
+
+	3.2. Request
+		DELETE
+
+	3.3. Request JSON
+		{
+			session: 비어있지 않고 올바른 세션 문자열(trim)
+		}
+
+	3.4. Response JSON
+
+		3.4.1. Success
+			{
+				success  : true,
+				errorCode: 0
+			}
+
+		3.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+4. 작품 최신순으로 25개 가져오기 (수정될 예정)
+
+	4.1. URL
+		/novel/
+
+	4.2. Request
+		GET
+
+	4.3. Request JSON
+		{
+			session: 비어있지 않고 올바른 세션 문자열(trim)
+		}
+
+	4.4. Response JSON
+
+		4.4.1. Success
+			{
+				success  : true,
+				errorCode: 0,
+				novel    : [
+					{
+						id          : 작품 고유 식별 번호,
+						name        : 작품 이름,
+						author      : 저자 닉네임,
+						introduction: 작품 소개글,
+						episodeCount: 에피소드 개수,
+						createdDate : 생성 날짜,
+						updatedDate : 최종 업데이트 날짜
+					},
+					...
+				]
+			}
+
+		4.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+5. 작품 생성
+
+	5.1. URL
+		/novel/
+
+	5.2. Request
+		POST
+
+	5.3. Request JSON
+		{
+			session     : 비어있지 않고 올바른 세션 문자열(trim),
+			name        : 비어있지 않은 문자열(trim),
+			introduction: 문자열
+		}
+
+	5.4. Response JSON
+
+		5.4.1. Success
+			{
+				success  : true,
+				errorCode: 0,
+				id		 : 작품 고유 식별 번호
+			}
+
+		5.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+6. 작품 삭제
+
+	6.1. URL
+		/novel/
+
+	6.2. Request
+		DELETE
+
+	6.3. Request JSON
+		{
+			session     : 비어있지 않고 올바른 세션 문자열(trim),
+			id          : 숫자
+		}
+
+	6.4. Response JSON
+
+		6.4.1. Success
+			{
+				success  : true,
+				errorCode: 0
+			}
+
+		6.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+7. 작품 상세 정보 가져오기
+
+	7.1. URL
+		/novel/(작품 고유 식별 번호)/
+
+	7.2. Request
+		GET
+
+	7.3. Request JSON
+		{
+			session     : 비어있지 않고 올바른 세션 문자열(trim)
+		}
+
+	7.4. Response JSON
+
+		7.4.1. Success
+			{
+				success     : true,
+				errorCode   : 0,
+				name        : 작품 이름,
+				author      : 저자 닉네임,
+				introduction: 작품 소개글,
+				episodeCount: 에피소드 개수,
+				createdDate : 생성 날짜,
+				updatedDate : 최종 업데이트 날짜
+				episode     : [
+					{
+						id         : 에피소드 고유 식별 번호,
+						name       : 에피소드 이름,
+						createdDate: 생성 날짜,
+						updatedDate: 최종 업데이트 날짜
+					},
+					...
+				]
+			}
+
+		7.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+8. 에피소드 작성
+
+	8.1. URL
+		/novel/(작품 고유 식별 번호)/
+
+	8.2. Request
+		POST
+
+	8.3. Request JSON
+		{
+			session: 비어있지 않고 올바른 세션 문자열(trim),
+			name   : 문자열,
+			content: 문자열
+		}
+
+	8.4. Response JSON
+
+		8.4.1. Success
+			{
+				success  : true,
+				errorCode: 0,
+				id		 : 에피소드 고유 식별 번호
+			}
+
+		8.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
+
+9. 에피소드 가져오기
+
+	9.1. URL
+		/novel/(작품 고유 식별 번호)/(에피소드 고유 식별 번호)/
+
+	9.2. Request
+		GET
+
+	9.3. Request JSON
+		{
+			session: 비어있지 않고 올바른 세션 문자열(trim)
+		}
+
+	9.4. Response JSON
+
+		9.4.1. Success
+			{
+				success    : true,
+				errorCode  : 0,
+				name       : 에피소드 이름,
+				content    : 에피소드 내용,
+				createdDate: 생성 날짜,
+				updatedDate: 최종 업데이트 날짜
+			}
+
+		9.4.2. Failure
+			{
+				success  : false,
+				errorCode: 0이 아닌 값
+			}
