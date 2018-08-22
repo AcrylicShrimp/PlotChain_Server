@@ -7,12 +7,35 @@ const sha256         = require('sha256');
 const uuid           = require('uuid');
 const router         = express.Router();
 
-const errorCode      = require('./../error-code');
-const helper         = require('./../helper');
-const sessionHandler = require('./../session-handler');
-const Member         = require('./../../database/member');
-const Novel          = require('./../../database/novel');
-const Session        = require('./../../database/session');
+const errorCode         = require('./../error-code');
+const helper            = require('./../helper');
+const sessionHandler    = require('./../session-handler');
+const totalHeartHandler = require('./../total-heart-handler');
+const Heart             = require('./../../database/heart');
+const History           = require('./../../database/history');
+const Member            = require('./../../database/member');
+const Novel             = require('./../../database/novel');
+const Session           = require('./../../database/session');
+
+function joinNovelWithIsHeart(member, query, callback) {
+	query.exec((err, novel) => {
+		if (err) {
+			callback(err, null);
+			return;
+		}
+
+		Heart.findOne({ novel: novel.id, nickname: member.nickname }, { _id: true }, (err, heart) => {
+			if (err) {
+				callback(err, null);
+				return;
+			}
+
+			novel.isHeart = heart ? true : false;
+
+			callback(null, novel);
+		});
+	});
+}
 
 router.post('/', (req, res) => {
 	let nickname;
@@ -119,7 +142,6 @@ router.post('/session', (req, res) => {
 
 				helper.success(res, {
 					nickname: member.nickname,
-					email   : member.email,
 					session : session.session
 				});
 			});
@@ -151,6 +173,63 @@ router.delete('/session', sessionHandler, (req, res) => {
 
 			helper.success(res);
 		});
+	});
+});
+
+router.get('/history', sessionHandler, totalHeartHandler, (req, res) => {
+	History.find({ reader: req.member.nickname }, { _id: false, novel: true, episode: true, readDate: true }).sort({ readDate: -1 }).exec((err, history) => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
+
+			return;
+		}
+
+		const list = [];
+
+		function findNovelAt(index) {
+			if (index === history.length) {
+				helper.success(res, {
+					totalHeart: req.totalHeart,
+					history   : list
+				});
+
+				return;
+			}
+
+			joinNovelWithIsHeart(req.member, Novel.findOne({ id: history[index].novel }, { _id: false, id: true, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }), (err, novel) => {
+				if (err) {
+					console.error(err);
+					helper.serverError(res);
+
+					return;
+				}
+
+				if (novel)
+					list.push({
+						novel: {
+							isHeart     : novel.isHeart,
+							id          : novel.id,
+							name        : novel.name,
+							color       : novel.color,
+							author      : novel.author,
+							genre       : novel.genre,
+							state       : novel.state,
+							heart       : novel.heart,
+							introduction: novel.introduction,
+							episodeCount: novel.episodeCount,
+							createdDate : novel.createdDate,
+							updatedDate : novel.updatedDate
+						},
+						episode : history[index].episode,
+						readDate: history[index].readDate
+					});
+
+				findNovelAt(++index);
+			});
+		}
+
+		findNovelAt(0);
 	});
 });
 

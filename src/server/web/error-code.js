@@ -13,6 +13,8 @@ module.exports = {
 	novelNotPermitted   : 8,
 	episodeInvalid      : 9,
 	modeInvalid         : 10,
+	genreInvalid        : 11,
+	colorInvalid        : 12,
 	nicknameAlreadyInUse: 100,
 	emailAlreadyInUse   : 101,
 	nicknameInvalid     : 102,
