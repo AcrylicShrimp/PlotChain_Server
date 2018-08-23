@@ -15,6 +15,7 @@ module.exports = {
 	modeInvalid         : 10,
 	genreInvalid        : 11,
 	colorInvalid        : 12,
+	addressInvalid      : 13,
 	nicknameAlreadyInUse: 100,
 	emailAlreadyInUse   : 101,
 	nicknameInvalid     : 102,

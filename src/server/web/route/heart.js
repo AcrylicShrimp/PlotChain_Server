@@ -7,6 +7,7 @@ const router  = express.Router();
 const errorCode      = require('./../error-code');
 const helper         = require('./../helper');
 const sessionHandler = require('./../session-handler');
+const transaction    = require('./../transaction');
 const Counter        = require('./../../database/counter');
 const Heart          = require('./../../database/heart');
 const HeartEvent     = require('./../../database/heart-event');
@@ -83,6 +84,8 @@ router.post('/', sessionHandler, (req, res) => {
 
 								return;
 							}
+
+							transaction(id, novel.heart);
 							
 							helper.success(res);
 						});
@@ -161,6 +164,8 @@ router.delete('/', sessionHandler, (req, res) => {
 
 								return;
 							}
+
+							transaction(id, novel.heart);
 
 							helper.success(res);
 						});

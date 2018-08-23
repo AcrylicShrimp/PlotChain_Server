@@ -41,6 +41,7 @@ router.post('/', (req, res) => {
 	let nickname;
 	let email;
 	let password;
+	let address;
 
 	if (!(nickname = helper.checkBodyEmpty(req, res, 'nickname', errorCode.nicknameInvalid, true)))
 		return;
@@ -51,8 +52,16 @@ router.post('/', (req, res) => {
 	if (!(password = helper.checkBodyEmpty(req, res, 'password', errorCode.passwordInvalid, false)))
 		return;
 
+	if (!(address = helper.checkBodyEmpty(req, res, 'address', errorCode.addressInvalid, true)))
+		return;
+
 	if (!emailValidator.validate(email)) {
 		helper.clientError(res, errorCode.emailInvalid);
+		return;
+	}
+
+	if (!/^0[xX](?:[0-9]|[a-f]|[A-F]){40}$/.test(address)) {
+		helper.clientError(res, errorCode.addressInvalid);
 		return;
 	}
 
@@ -75,7 +84,7 @@ router.post('/', (req, res) => {
 		member.nickname = nickname;
 		member.email    = email;
 		member.password = sha256(password);
-		member.writer   = false;
+		member.address  = address;
 
 		member.save(err => {
 			if (err) {
@@ -105,7 +114,7 @@ router.post('/session', (req, res) => {
 		return;
 	}
 
-	Member.findOne({ email: email, password: sha256(password) }, { _id: false, nickname: true, email: true, password: true }, (err, member) => {
+	Member.findOne({ email: email, password: sha256(password) }, { _id: false, nickname: true, email: true, password: true, address: true }, (err, member) => {
 		if (err) {
 			console.error(err);
 			helper.serverError(res);
@@ -142,6 +151,7 @@ router.post('/session', (req, res) => {
 
 				helper.success(res, {
 					nickname: member.nickname,
+					address : member.address,
 					session : session.session
 				});
 			});
@@ -230,6 +240,30 @@ router.get('/history', sessionHandler, totalHeartHandler, (req, res) => {
 		}
 
 		findNovelAt(0);
+	});
+});
+
+router.post('/address', sessionHandler, (req, res) => {
+	let address;
+
+	if (!(address = helper.checkBodyEmpty(req, res, 'address', errorCode.addressInvalid, true)))
+		return;
+
+	if (!/^0[xX](?:[0-9]|[a-f]|[A-F]){40}$/.test(address)) {
+		helper.clientError(res, errorCode.addressInvalid);
+		return;
+	}
+
+	req.member.address = address;
+	req.member.save(err => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
+
+			return;
+		}
+
+		helper.success(res);
 	});
 });
 

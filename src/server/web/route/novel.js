@@ -84,7 +84,7 @@ router.get('/', sessionHandler, totalHeartHandler, (req, res) => {
 		position = 0;
 		
 	if (mode)
-		joinNovelsWithIsHeart(req.member, Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).skip(position).limit(25).sort({ updateDate: 1 }), (err, novel) => {
+		joinNovelsWithIsHeart(req.member, Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).skip(position).limit(25), (err, novel) => {
 			if (err) {
 				console.error(err);
 				helper.serverError(res);
@@ -113,7 +113,7 @@ router.get('/', sessionHandler, totalHeartHandler, (req, res) => {
 			});
 		});
 	else
-		joinNovelsWithIsHeart(req.member, Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ updatedDate: -1 }).skip(position).limit(25).sort({ updateDate: 1 }), (err, novel) => {
+		joinNovelsWithIsHeart(req.member, Novel.find({ episodeCount: { $gt: 0 } }, { _id: false, id: true, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }).sort({ heart: -1 }).skip(position).limit(25), (err, novel) => {
 			if (err) {
 				console.error(err);
 				helper.serverError(res);
