@@ -9,6 +9,7 @@ const helper         = require('./../helper');
 const sessionHandler = require('./../session-handler');
 const Counter        = require('./../../database/counter');
 const Heart          = require('./../../database/heart');
+const HeartEvent     = require('./../../database/heart-event');
 const Novel          = require('./../../database/novel');
 
 router.post('/', sessionHandler, (req, res) => {
@@ -70,7 +71,21 @@ router.post('/', sessionHandler, (req, res) => {
 							return;
 						}
 
-						helper.success(res);
+						const heartEvent        = new HeartEvent();
+						      heartEvent.novel  = id;
+						      heartEvent.heart  = novel.heart;
+						      heartEvent.amount = 1;
+						      heartEvent.time   = Date.now();
+						heartEvent.save(err => {
+							if (err) {
+								console.error(err);
+								helper.serverError(res);
+
+								return;
+							}
+							
+							helper.success(res);
+						});
 					});
 				});
 			});
@@ -134,11 +149,101 @@ router.delete('/', sessionHandler, (req, res) => {
 							return;
 						}
 
-						helper.success(res);
+						const heartEvent        = new HeartEvent();
+						      heartEvent.novel  = id;
+						      heartEvent.heart  = novel.heart;
+						      heartEvent.amount = -1;
+						      heartEvent.time   = Date.now();
+						heartEvent.save(err => {
+							if (err) {
+								console.error(err);
+								helper.serverError(res);
+
+								return;
+							}
+
+							helper.success(res);
+						});
 					});
 				});
 			});
 		});
+	});
+});
+
+router.get('/history', sessionHandler, (req, res) => {
+	Novel.find({ author: req.member.nickname, episodeCount: { $gt: 0 } }, { _id: false, id: true, heart: true }, (err, novel) => {
+		if (err) {
+			console.error(err);
+			helper.serverError(res);
+			
+			return;
+		}
+
+		const list = [];
+		const now  = Date.now();
+		
+		//for (let day = 6; day >= 0; --day)
+		//	for (let time = 23; time >= 0; --time)
+		for (let minute = 14; minute >= 0; --minute)
+			for (let seconds = 50; seconds >= 0; seconds -= 10)
+				list.push({
+					//time : now - day * 86400000 - time * 3600000,
+					time : now - minute * 60* 1000 - seconds * 1000,
+					heart: 0
+				});
+
+		function updateListWithNovelAt(index) {
+			if (index === novel.length) {
+				helper.success(res, {
+					history: list
+				});
+				return;
+			}
+			
+			HeartEvent.find({ novel: novel[index].id, time: { $gt: now - 60 * 15 * 1000 } }, { _id: false, heart: true, amount: true, time: true }).sort({ time: 1 }).exec((err, heartEvent) => {
+				if (err) {
+					console.error(err);
+					helper.serverError(res);
+		
+					return;
+				}
+				
+				if (!heartEvent.length)
+					heartEvent.push({
+						time  : now,
+						heart : novel[index].heart,
+						amount: 0
+					});
+					
+					
+					
+				heartEvent.unshift({
+					time : now - 60 * 15 * 1000,
+					heart: heartEvent[0].heart - heartEvent[0].amount
+				});
+				
+				let listIndex  = 0;
+				let innerIndex = 0;
+		
+				//for (let day = 6; day >= 0; --day)
+				//	for (let time = 23; time >= 0; --time) {
+				for (let minute = 14; minute >= 0; --minute)
+					for (let seconds = 50; seconds >= 0; seconds -= 10) {
+						//const current = now - day * 86400000 - time * 3600000;
+						const current = now - minute * 60 * 1000 - seconds * 1000;
+		
+						while (innerIndex + 1 < heartEvent.length && heartEvent[innerIndex + 1].time <= current)
+							++innerIndex;
+
+						list[listIndex++].heart += heartEvent[innerIndex].heart;
+					}
+
+				updateListWithNovelAt(index + 1);
+			});
+		}
+		
+		updateListWithNovelAt(0);
 	});
 });
 

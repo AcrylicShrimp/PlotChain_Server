@@ -11,6 +11,7 @@ const totalHeartHandler = require('./../total-heart-handler');
 const Counter           = require('./../../database/counter');
 const Episode           = require('./../../database/episode');
 const Heart             = require('./../../database/heart');
+const HeartEvent        = require('./../../database/heart-event');
 const History           = require('./../../database/history');
 const Novel             = require('./../../database/novel');
 
@@ -229,8 +230,22 @@ router.post('/', sessionHandler, (req, res) => {
 				return;
 			}
 
-			helper.success(res, {
-				id: novel.id
+			const heartEvent        = new HeartEvent();
+			      heartEvent.novel  = seq;
+			      heartEvent.heart  = 0;
+			      heartEvent.amount = 0;
+			      heartEvent.time   = novel.createdDate;
+			heartEvent.save(err => {
+				if (err) {
+					console.error(err);
+					helper.serverError(res);
+
+					return;
+				}
+
+				helper.success(res, {
+					id: novel.id
+				});
 			});
 		});
 	});
@@ -296,16 +311,25 @@ router.delete('/', sessionHandler, (req, res) => {
 
 							return;
 						}
-						
-						novel.remove(err => {
+
+						HeartEvent.remove({ novel: id }, err => {
 							if (err) {
 								console.error(err);
 								helper.serverError(res);
-	
+
 								return;
 							}
-	
-							helper.success(res);
+							
+							novel.remove(err => {
+								if (err) {
+									console.error(err);
+									helper.serverError(res);
+		
+									return;
+								}
+		
+								helper.success(res);
+							});
 						});
 					});
 				});
