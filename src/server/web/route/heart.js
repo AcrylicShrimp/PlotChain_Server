@@ -188,13 +188,10 @@ router.get('/history', sessionHandler, (req, res) => {
 		const list = [];
 		const now  = Date.now();
 		
-		//for (let day = 6; day >= 0; --day)
-		//	for (let time = 23; time >= 0; --time)
 		for (let minute = 14; minute >= 0; --minute)
 			for (let seconds = 50; seconds >= 0; seconds -= 10)
 				list.push({
-					//time : now - day * 86400000 - time * 3600000,
-					time : now - minute * 60* 1000 - seconds * 1000,
+					time : now - minute * 60 * 1000 - seconds * 1000,
 					heart: 0
 				});
 
@@ -221,8 +218,6 @@ router.get('/history', sessionHandler, (req, res) => {
 						amount: 0
 					});
 					
-					
-					
 				heartEvent.unshift({
 					time : now - 60 * 15 * 1000,
 					heart: heartEvent[0].heart - heartEvent[0].amount
@@ -230,14 +225,11 @@ router.get('/history', sessionHandler, (req, res) => {
 				
 				let listIndex  = 0;
 				let innerIndex = 0;
-		
-				//for (let day = 6; day >= 0; --day)
-				//	for (let time = 23; time >= 0; --time) {
+
 				for (let minute = 14; minute >= 0; --minute)
 					for (let seconds = 50; seconds >= 0; seconds -= 10) {
-						//const current = now - day * 86400000 - time * 3600000;
 						const current = now - minute * 60 * 1000 - seconds * 1000;
-		
+						
 						while (innerIndex + 1 < heartEvent.length && heartEvent[innerIndex + 1].time <= current)
 							++innerIndex;
 

@@ -349,7 +349,7 @@ router.get('/:id', sessionHandler, totalHeartHandler, (req, res) => {
 		return;
 	}
 
-	joinNovelWithIsHeart(req.member, Novel.findOne({ id: id }, { _id: false, id: id, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }), (err, novel) => {
+	joinNovelWithIsHeart(req.member, Novel.findOne({ id: id }, { _id: false, id: true, name: true, color: true, author: true, genre: true, state: true, heart: true, introduction: true, episodeCount: true, createdDate: true, updatedDate: true }), (err, novel) => {
 		if (err) {
 			console.error(err);
 			helper.serverError(res);
